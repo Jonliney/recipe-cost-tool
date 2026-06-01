@@ -1,6 +1,15 @@
 # Recipe Cost Tool
 
-Planning docs:
+Next.js and `shadcn/ui` are scaffolded for the app shell.
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Planning Docs
 
 - `docs/implementation-plan.md`
 - `docs/architecture.md`
