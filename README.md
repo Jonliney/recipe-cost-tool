@@ -6,7 +6,25 @@ Next.js and `shadcn/ui` are scaffolded for the app shell.
 
 ```bash
 npm install
+cp .env.example .env
 npm run dev
+```
+
+## Auth And Database
+
+Core wiring now includes:
+
+- Better Auth with email/password and the organization plugin
+- Neon serverless driver with Drizzle ORM
+- generated Better Auth Drizzle schema and initial SQL migration
+
+Useful scripts:
+
+```bash
+npm run auth:generate
+npm run db:generate
+npm run db:migrate
+npm run db:studio
 ```
 
 ## Planning Docs
