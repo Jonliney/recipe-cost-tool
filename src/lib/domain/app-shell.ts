@@ -20,6 +20,7 @@ export async function getAppShellState() {
 
   return {
     session,
+    organizationId: onboardingState.resolvedOrganizationId ?? null,
     activeOrganization: onboardingState.activeOrganization ?? null,
     settings: onboardingState.settings ?? null,
     needsOnboarding: onboardingState.needsOnboarding,

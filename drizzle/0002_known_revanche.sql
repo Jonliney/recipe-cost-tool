@@ -1,0 +1,2 @@
+DROP INDEX "purchasable_item_org_category_name_uidx";--> statement-breakpoint
+CREATE UNIQUE INDEX "purchasable_item_org_category_name_uidx" ON "purchasable_item" USING btree ("organization_id","category","name_normalized") WHERE "purchasable_item"."deleted_at" IS NULL;

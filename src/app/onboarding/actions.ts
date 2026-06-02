@@ -9,6 +9,7 @@ import { getSession } from "@/lib/auth/session";
 import { db } from "@/lib/db/client";
 import { organizationSettings } from "@/lib/db/schema";
 import { ensureUniqueOrganizationSlug } from "@/lib/domain/onboarding";
+import { getActionFormValue } from "@/lib/utils/form-data";
 
 type OnboardingActionState = {
   error: string | null;
@@ -41,26 +42,6 @@ function parseOptionalMoney(value?: string) {
   return trimmed;
 }
 
-function getFormValue(formData: FormData, fieldName: string) {
-  const directValue = formData.get(fieldName);
-
-  if (directValue !== null) {
-    return directValue;
-  }
-
-  for (const [entryKey, entryValue] of formData.entries()) {
-    if (entryKey === fieldName) {
-      return entryValue;
-    }
-
-    if (entryKey.match(new RegExp(`^_\\d+_${fieldName}$`))) {
-      return entryValue;
-    }
-  }
-
-  return undefined;
-}
-
 export async function completeOnboarding(
   _previousState: OnboardingActionState,
   formData: FormData,
@@ -74,16 +55,19 @@ export async function completeOnboarding(
   }
 
   const parsed = onboardingSchema.safeParse({
-    bakeryName: getFormValue(formData, "bakeryName"),
-    currencyCode: getFormValue(formData, "currencyCode"),
-    countryCode: getFormValue(formData, "countryCode"),
-    locale: getFormValue(formData, "locale"),
-    vatRegistered: getFormValue(formData, "vatRegistered"),
-    defaultTaxRate: getFormValue(formData, "defaultTaxRate"),
-    defaultMarkupPercentage: getFormValue(formData, "defaultMarkupPercentage"),
-    roundingMode: getFormValue(formData, "roundingMode"),
-    roundingIncrement: getFormValue(formData, "roundingIncrement"),
-    roundingPriceEnding: getFormValue(formData, "roundingPriceEnding"),
+    bakeryName: getActionFormValue(formData, "bakeryName"),
+    currencyCode: getActionFormValue(formData, "currencyCode"),
+    countryCode: getActionFormValue(formData, "countryCode"),
+    locale: getActionFormValue(formData, "locale"),
+    vatRegistered: getActionFormValue(formData, "vatRegistered"),
+    defaultTaxRate: getActionFormValue(formData, "defaultTaxRate"),
+    defaultMarkupPercentage: getActionFormValue(
+      formData,
+      "defaultMarkupPercentage",
+    ),
+    roundingMode: getActionFormValue(formData, "roundingMode"),
+    roundingIncrement: getActionFormValue(formData, "roundingIncrement"),
+    roundingPriceEnding: getActionFormValue(formData, "roundingPriceEnding"),
   });
 
   if (!parsed.success) {

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import {
   Card,
@@ -7,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { SignOutButton } from "@/components/sign-out-button";
 import { getAppShellState } from "@/lib/domain/app-shell";
 
@@ -73,6 +75,11 @@ export default async function Home() {
               <li>Recipe lineages, versions, and sub-recipes</li>
               <li>Production runs and organization settings</li>
             </ul>
+            <div className="pt-4">
+              <Button asChild variant="outline">
+                <Link href="/catalog">Open catalog</Link>
+              </Button>
+            </div>
           </CardContent>
         </Card>
 

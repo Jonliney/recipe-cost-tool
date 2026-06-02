@@ -110,11 +110,9 @@ export const purchasableItem = pgTable(
     deletedAt: timestamp("deleted_at"),
   },
   (table) => [
-    uniqueIndex("purchasable_item_org_category_name_uidx").on(
-      table.organizationId,
-      table.category,
-      table.nameNormalized,
-    ),
+    uniqueIndex("purchasable_item_org_category_name_uidx")
+      .on(table.organizationId, table.category, table.nameNormalized)
+      .where(sql`${table.deletedAt} IS NULL`),
     index("purchasable_item_org_idx").on(table.organizationId),
   ],
 );
